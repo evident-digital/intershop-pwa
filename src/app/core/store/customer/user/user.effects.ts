@@ -21,6 +21,7 @@ import {
 } from 'rxjs/operators';
 
 import { CustomerRegistrationType } from 'ish-core/models/customer/customer.model';
+import { AddressService } from 'ish-core/services/address/address.service';
 import { PaymentService } from 'ish-core/services/payment/payment.service';
 import { PersonalizationService } from 'ish-core/services/personalization/personalization.service';
 import { UserService } from 'ish-core/services/user/user.service';
@@ -29,6 +30,7 @@ import { ofUrl, selectQueryParam, selectUrl } from 'ish-core/store/core/router';
 import { mapErrorToAction, mapToPayload, mapToPayloadProperty, whenTruthy } from 'ish-core/utils/operators';
 
 import {
+  completeUserProfile,
   createUser,
   createUserFail,
   deleteUserPaymentInstrument,
@@ -72,6 +74,7 @@ export class UserEffects {
     private userService: UserService,
     private paymentService: PaymentService,
     private personalizationService: PersonalizationService,
+    private addressService: AddressService,
     private router: Router
   ) {}
 
@@ -131,6 +134,32 @@ export class UserEffects {
           // TODO:see #IS-22750 - user should actually be logged in after registration
           map(() => loginUser({ credentials: data.credentials })),
           mapErrorToAction(createUserFail)
+        )
+      )
+    )
+  );
+
+  completeProfile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(completeUserProfile),
+      mapToPayload(),
+      withLatestFrom(this.store$.pipe(select(getLoggedInUser)), this.store$.pipe(select(getLoggedInCustomer))),
+      concatMap(([{ user, address }, userStub, customer]) =>
+        this.userService.updateUser({ user: { ...userStub, ...user }, customer }).pipe(
+          concatMap(() =>
+            this.addressService.getCustomerAddresses().pipe(
+              map(addresses => addresses[0]),
+              concatMap(addressStub =>
+                this.addressService.updateCustomerAddress(undefined, { ...addressStub, ...address }).pipe(
+                  tap(() => {
+                    this.router.navigateByUrl('/login');
+                  }),
+                  mapTo(loadUserByAPIToken())
+                )
+              )
+            )
+          ),
+          mapErrorToAction(updateUserFail)
         )
       )
     )

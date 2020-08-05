@@ -107,6 +107,11 @@ const routes: Routes = [
     },
   },
   {
+    path: 'complete-profile',
+    loadChildren: () =>
+      import('./complete-profile/complete-profile-page.module').then(m => m.CompleteProfilePageModule),
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login-page.module').then(m => m.LoginPageModule),
     canActivate: [IdentityProviderLoginGuard],

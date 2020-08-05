@@ -1,5 +1,6 @@
 import { createAction } from '@ngrx/store';
 
+import { Address } from 'ish-core/models/address/address.model';
 import { Credentials } from 'ish-core/models/credentials/credentials.model';
 import { Customer, CustomerRegistrationType, CustomerUserType } from 'ish-core/models/customer/customer.model';
 import { PasswordReminder } from 'ish-core/models/password-reminder/password-reminder.model';
@@ -22,6 +23,11 @@ export const loadCompanyUserSuccess = createAction('[User API] Load Company User
 export const logoutUser = createAction('[User] Logout User');
 
 export const createUser = createAction('[User] Create User', payload<CustomerRegistrationType>());
+
+export const completeUserProfile = createAction(
+  '[User] Complete Profile',
+  payload<{ user: Partial<User>; address: Address }>()
+);
 
 export const createUserFail = createAction('[User API] Create User Failed', httpError());
 

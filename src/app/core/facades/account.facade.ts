@@ -20,6 +20,7 @@ import {
 import { getUserRoles } from 'ish-core/store/customer/authorization';
 import { getOrders, getOrdersLoading, getSelectedOrder, loadOrders } from 'ish-core/store/customer/orders';
 import {
+  completeUserProfile,
   createUser,
   deleteUserPaymentInstrument,
   getLoggedInCustomer,
@@ -69,6 +70,10 @@ export class AccountFacade {
 
   createUser(body: CustomerRegistrationType) {
     this.store.dispatch(createUser(body));
+  }
+
+  completeProfile(user: Partial<User>, address: Address) {
+    this.store.dispatch(completeUserProfile({ user, address }));
   }
 
   updateUser(user: User, successMessage?: string) {
