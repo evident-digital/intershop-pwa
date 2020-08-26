@@ -15,7 +15,6 @@ import { CookieBannerModalComponent } from '../cookie-banner-modal/cookie-banner
 @Component({
   selector: 'ish-cookie-banner',
   templateUrl: './cookie-banner.component.html',
-  styleUrls: ['./cookie-banner.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CookieBannerComponent implements OnInit, OnDestroy {

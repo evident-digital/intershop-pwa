@@ -2876,7 +2876,7 @@
   "subject.has.no.permission.assigned": "You do not have the required permission to perform this action.",
   "user.not.authenticated": "You are not authenticated to access this page.",
   "cookie_consent.cookie_preferences": "Cookie Preferences",
-  "cookie_consent.banner.text": "<p style=\"font-size: 110%;\">Your privacy is important for us</p><p>This website uses cookies and other technologies to keep our site secure, to measure the performance, to personalize the content and to improve your experience on our site. Therefore we track data about users and their behavior.</p><p>By confirming \"Accept all\" you agree to the use of all cookies. Select the button \"Set Preferences\" for further details and to manage your options. More detailed information is provided in our Privacy Policy.</p>",
+  "cookie_consent.banner.text": "<h4>Your privacy is important for us</h4><p>This website uses cookies and other technologies to keep our site secure, to measure the performance, to personalize the content and to improve your experience on our site. Therefore we track data about users and their behavior.<br/>By confirming \"Accept all\" you agree to the use of all cookies. Select the button \"Set Preferences\" for further details and to manage your options. More detailed information is provided in our <a href=\"page://page.privacyPolicy.pagelet2-Page\">Privacy Policy</a>.</p>",
   "cookie_consent.banner.accept_all": "Accept All",
   "cookie_consent.banner.set_preferences": "Set Preferences",
   "cookie_consent.footer_link": "Manage Cookies",
